@@ -1,16 +1,16 @@
 const express = require("express");
-const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
 const { check, validationResult } = require('express-validator');
+const loginMid = require('../middleware/login');
 
+const router = express.Router();
 const User = require('../models/user');
-const user = require("../models/user");
-// const password = "secret";
+// const Post = require("../models/post");
+
 const saltRounds = 10;
 
-router.get('/', async (req, res) => {
+router.get('/', loginMid, async (req, res) => {
 	// User.find().then(users => res.json(users))
 
 	try {
@@ -70,7 +70,7 @@ async (req, res) => {
 	// newUser.save().then(user => res.json(user))
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', loginMid, async (req, res) => {
 	let user = await User.findById(req.user.id);
 	const password = req.body;
 
@@ -96,7 +96,7 @@ router.post('/login', async (req, res) => {
 	}
 });
 
-router.put('/', async (req, res) => {
+router.put('/', loginMid, async (req, res) => {
 	try {
 		let user = await User.findById(req.user.id);
 		const {name, email, newPassword} = req.body;
@@ -127,7 +127,7 @@ router.put('/', async (req, res) => {
 	// 	})
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', loginMid, (req, res) => {
 	User.findById(req.params.id)        
 	  .then(user => {            
 		user.remove()                

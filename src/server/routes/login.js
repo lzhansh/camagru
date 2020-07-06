@@ -1,12 +1,14 @@
 const express = require("express");
-const router = express.Router();
+const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require('express-validator');
+const loginMid = require('../middleware/login');
 
+const router = express.Router();
 const User = require('../models/user')
 
-const SECRET = process.env.jwtSecret;
+const jwtSecret = require('../constants');
 
 // function loggedIn(req, res, next) {
 //     try {
@@ -19,19 +21,19 @@ const SECRET = process.env.jwtSecret;
 //     }
 // }
 
-function correctUser(req, res, next) {
-    try {
-        const loginHeader = req.headers.authorization;
-        const token = jwt.verify(loginHeader, SECRET);
-        if (token.user === req.params.user)
-            return next();
-        else
-            return res.status(401).send('Unauthorized');
-    } catch (err) {
-        console.log(err.message);
-        return res.status(401),send('Unauthorized');
-    }
-}
+// function correctUser(req, res, next) {
+//     try {
+//         const loginHeader = req.headers.authorization;
+//         const token = jwt.verify(loginHeader, SECRET);
+//         if (token.user === req.params.user)
+//             return next();
+//         else
+//             return res.status(401).send('Unauthorized');
+//     } catch (err) {
+//         console.log(err.message);
+//         return res.status(401),send('Unauthorized');
+//     }
+// }
 
 router.get('/', correctUser, async (req, res) => {
     try {
@@ -99,7 +101,7 @@ router.post('/', [
 
 		jwt.sign(
             { user: { id: user.id }},
-            SECRET,
+            jwtSecret,
 			{ expiresIn: 60 * 60 },
 			(err, token) => {
 				if (err) throw err;
