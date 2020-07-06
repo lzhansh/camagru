@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+//each mongoose starts from schema, which maps to a MongoDB and
+// and defines shape of the doc within that collection
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -13,9 +15,14 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
-});//each mongoose starts from schema, which maps to a MongoDB and
-// and defines shape of the doc within that collection
+	},
+	resetToken: {
+		type: String
+	},
+	expirationToken: {
+		type: Date
+	}
+});
 
 //compile schema onto a model and export
 module.exports = mongoose.model('User', userSchema);

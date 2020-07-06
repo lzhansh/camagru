@@ -8,6 +8,16 @@ So here is my log, not to help other people, but not to forget what i learnt. LO
 
 - Where did i start?
 I went through so many online courses and the one i found useful is https://www.rithmschool.com/ . It is free and written in easy-to-get way. I went through JS basics, intermediate and some of adv lessons.
-Also, covered both basics and intermediate nodejs and expresjs. Of course, some react as well. Those lessons helped me a lot, so i was able to know where should i start and how to do the project.
+Also, covered both basics and intermediate nodejs and expressjs. Of course, some react as well. Those lessons helped me a lot, so i was able to know where should i start and how to do the project.
+Another course worth to mention is SD4x: Programming for the Web with JavaScript on edx.org.
 
-Next, i started from backend implementation.
+Database
+MongoDB - NoSQL Database which represents data as a collection of documents/objects rather than tables and rows. 
+
+Backend implementation:
+JavaScript
+
+Redux, React, JS
+React components are stored in src/client/components folder. Those components can be reused. This way we don’t have to keep rewriting code. This is one of the features of React 
+
+Nodejs 
