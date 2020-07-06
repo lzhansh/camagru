@@ -3,7 +3,7 @@ const { check, validationResult } = require("express-validator");
 const loginMid = require('../middleware/login');
 
 const router = express.Router();
-const User = require('../models/user');
+// const User = require('../models/user');
 const Post = require('../models/post');
 
 router.get('/all', async (req, res) => {
