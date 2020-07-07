@@ -15,13 +15,13 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-	},
-	resetToken: {
-		type: String
-	},
-	expirationToken: {
-		type: Date
 	}
+	// resetToken: {
+	// 	type: String
+	// },
+	// expirationToken: {
+	// 	type: Date
+	// }
 });
 
 //compile schema onto a model and export

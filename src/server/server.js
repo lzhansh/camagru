@@ -1,17 +1,14 @@
 const mongoose = require('mongoose');
 const express = require("express");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 
-const users = require('./routes/users');
-// const login = require('./routes/login');
-// const login = require('./routes/posts');
-
-const db = require('../../config/keys').mongodbURI;
-const PUBLIC_DIR = process.cwd() + '/dist';
 const app = express();
+const db = require('../../config/keys').mongodbURI;
+// const PUBLIC_DIR = process.cwd() + '/dist';
 
-app.use(express.json({ extended: false }));
-app.use(bodyParser.urlencoded({extended: true }));
+// const users = require('./routes/users');
+const login = require('./routes/login');
+const post = require('./routes/posts');
 
 mongoose.connect(db, {
 	            useNewUrlParser: true,
@@ -28,14 +25,18 @@ mongoose.connect(db, {
 // 		else res.redirect(`https://'${req.headers.host}${req.url}`);
 // 	});
 // 	} 
-app.use('/users', users);
-// app.use('/login', login);
-// app.use('/posts', posts);
+
+app.use(express.json());
+// app.use(bodyParser.urlencoded({extended: true }));
+
+app.use(login);
+// app.use('/users', users);
+app.use(post);
 // app.use('/', (req, res) =>
 	// { res.redirect('/'); });
 
-const port = process.env.PORT || 3000;
-app.use(express.static(PUBLIC_DIR));
+const port = 3000;
+// app.use(express.static(PUBLIC_DIR));
 
 app.listen(port, () => console.log(`App listening on port ${port}`));
 

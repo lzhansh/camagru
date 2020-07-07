@@ -8,7 +8,7 @@ const router = express.Router();
 const User = require('../models/user');
 // const Post = require("../models/post");
 
-const saltRounds = 10;
+// const saltRounds = 10;
 
 router.get('/', loginMid, async (req, res) => {
 	// User.find().then(users => res.json(users))
