@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/server/server.js",
+  "proxy":"http://localhost:8000",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/server/server.js",
-    "server": "nodemon ./src/server/server.js",
-    "client": "webpack -w",
+    "server": "nodemon --watch \"./dist\"",
+    "client": "webpack --watch",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",

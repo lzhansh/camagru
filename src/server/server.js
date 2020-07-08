@@ -4,7 +4,7 @@ const express = require("express");
 
 const app = express();
 const db = require('../../config/keys').mongodbURI;
-// const PUBLIC_DIR = process.cwd() + '/dist';
+const PUBLIC_DIR = process.cwd() + '/dist';
 
 // const users = require('./routes/users');
 const login = require('./routes/login');
@@ -36,7 +36,7 @@ app.use(posts);
 	// { res.redirect('/'); });
 
 const port = 3000;
-// app.use(express.static(PUBLIC_DIR));
+app.use(express.static(PUBLIC_DIR));
 
 app.listen(port, () => console.log(`App listening on port ${port}`));
 
