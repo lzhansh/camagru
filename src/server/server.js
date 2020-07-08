@@ -8,7 +8,7 @@ const db = require('../../config/keys').mongodbURI;
 
 // const users = require('./routes/users');
 const login = require('./routes/login');
-const post = require('./routes/posts');
+const posts = require('./routes/posts');
 
 mongoose.connect(db, {
 	            useNewUrlParser: true,
@@ -31,7 +31,7 @@ app.use(express.json());
 
 app.use(login);
 // app.use('/users', users);
-app.use(post);
+app.use(posts);
 // app.use('/', (req, res) =>
 	// { res.redirect('/'); });
 

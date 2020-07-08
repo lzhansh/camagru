@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const {ObjectId} = mongoose.Schema.Types;
 const postSchema = new mongoose.Schema({
 	title: {
 		type: String,
@@ -14,13 +14,13 @@ const postSchema = new mongoose.Schema({
 		// res: "photo"
 		default: 'photo'
 	},
-	user: {
-        type: mongoose.Schema.Types.ObjectId,
+	postedBy: {
+        type: ObjectId,
         ref: "User"
-    },
-	imageType: {
-		type: String
-	}
+    }
+	// imageType: {
+	// 	type: String
+	// }
     // likes: [{
     //         user: {
     //             type: mongoose.Schema.Types.ObjectId,
