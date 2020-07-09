@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const express = require("express");
-// const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 
 const app = express();
 const db = require('../../config/keys').mongodbURI;
@@ -27,7 +27,7 @@ mongoose.connect(db, {
 // 	} 
 
 app.use(express.json());
-// app.use(bodyParser.urlencoded({extended: true }));
+app.use(bodyParser.urlencoded({extended: true }));
 
 app.use(login);
 // app.use('/users', users);

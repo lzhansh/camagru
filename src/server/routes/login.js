@@ -9,7 +9,7 @@ const router = express.Router();
 const User = require('../models/user')
 const saltRounds = 10;
 const {jwtSecret} = require('../../../config/keys');
-const { route } = require("./users");
+// const { route } = require("./users");
 
 // router.get('/', async (req, res) => {
 //     try {
@@ -32,7 +32,7 @@ const { route } = require("./users");
 router.post('/signup', (req, res) => {
 	const {name, email, password} = req.body;
 	if (!email || !password || !name) {
-		return res.status(422).json({error: "Please fill up all the fields"});
+		return res.status(422).json({error:"Please fill up all the fields"});
 	}
 	User.findOne({email: email})
 	.then((userExists) => {
@@ -40,21 +40,25 @@ router.post('/signup', (req, res) => {
 			return res.status(422).json({error: 'Email already exists'})
 		}
 		
-		bcrypt.hash(password, saltRounds, (err, hash)=> {
-			if (err) {
-				res.status(404).send(err);
-			} else {
+		bcrypt.hash(password, saltRounds)
+		.then(hashed => {
+			// if (err) {
+			// 	res.status(404).send(err);
+			// } else {
 				const user = new User({
 					name,
 					email,
-					password: hash
+					password: hashed
 				})
 
 				user.save()
 				.then(user => {
-					res.json({message: "success"});
+					res.json({message: "Successfully signed up!"});
 				})
-			}
+				.catch(err=>{
+					console.log(err)
+				})
+			// }
 		});
 	})
 	.catch(err => {
@@ -74,9 +78,9 @@ router.post('/signin', (req, res) => {
 		}
 		bcrypt.compare(password, user.password, (err, isMatch) => {
 			if (isMatch) {
-				// res.json({message: 'Succesfully signed in'});
 				const token = jwt.sign({_id: user._id}, jwtSecret);
-				res.json({token});
+				const {_id, name, email} = user;
+				res.json({token, user:{_id, name, email}});
 			} else {
 				res.status(422).json({error: 'Invalid email/password'});
 			}

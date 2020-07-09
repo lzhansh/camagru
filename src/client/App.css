@@ -4,7 +4,7 @@ a {
 	color:black !important;
 }
 
-.brand-logo {
+.brand-logo, h2 {
 	font-family: 'Yellowtail', cursive;
 }
 
@@ -35,4 +35,13 @@ a {
 	max-width: 500px;
 	height: max-content;
 	margin: 26px auto;
+}
+
+#toast-container {
+	top:30px !important;
+	padding: 20px !important;
+	text-align: center;
+	margin: 10px auto !important;
+	/* right: 20px !important;
+	left: auto !important; */
 }

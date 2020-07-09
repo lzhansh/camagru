@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/server/server.js",
-  "proxy":"http://localhost:8000",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/server/server.js",
@@ -23,6 +22,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.6.0",
     "jsonwebtoken": "^8.5.1",
+    "materialize-css": "^1.0.0-rc.2",
     "mongoose": "^5.9.20",
     "react": "^16.13.1",
     "react-cookies": "^0.1.1",
