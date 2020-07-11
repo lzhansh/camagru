@@ -41,7 +41,7 @@ const Signup = () => {
 				<h2>Camagru</h2>
 				<input type = "text" placeholder="name" value={name} onChange={(e)=>setName(e.target.value)}/>
 				<input type = "text" placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
-				<input type = "text" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+				<input type = "password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
 				<button className="btn waves-effect waves-light #5e35b1 deep-purple darken-1" type="submit" name="action" onClick={()=>postData()}>
 					Sign up
 				</button>

@@ -1,26 +1,52 @@
-import React from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import React, {useEffect, createContext, useReducer, useContext} from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
 // import { auth_token, user_user, user_biotemp, post_posts, post_isdone } from './actions/types';
-import {BrowserRouter, Route} from 'react-router-dom'
-// import axios from 'axios';
-// import cookie from 'react-cookies';
+import {BrowserRouter, Route, Switch, useHistory} from 'react-router-dom'
 
 import Header from './components/header/header';
 import Login from './components/login';
 import Home from './components/home';
 import Profile from './components/profile';
 import Signup from './components/signup';
-import CreatePort from './components/createPost';
-// import Body from './components/body/body';
-// import Footer from './components/footer/footer';
-// import Sidebar from '../../function/sidebar';
-// import Cover from '../../function/cover';
-
-// import Wrapper from 'react-div-100vh';
+import CreatePost from './components/createPost';
+import {userReducer, initialState} from './reducers/user'
 
 import './App.css';
-import CreatePost from './components/createPost';
+
+export const userContext = createContext()
+
+const Routing = () => {
+	const history = useHistory();
+	const {state, dispatch} = useContext(userContext);
+	useEffect(() => {
+		const user = JSON.parse(localStorage.getItem("user"))
+		if (user) {
+			// dispatch({type:"USER", payload:user})
+			history.push('/')
+		} else {
+			history.push('/signin')
+		}
+	},[])
+	return (
+		<Switch>
+			<Route exact path='/'>
+				<Home />
+			</Route>
+			<Route path="/signin">
+				<Login />
+			</Route>
+			<Route path="/signup">
+				<Signup />
+			</Route>
+			<Route path="/profile">
+				<Profile />
+			</Route>
+			<Route path="/createpost">
+				<CreatePost />
+			</Route>
+		</Switch>
+	)	
+}
 
 // const App = () => {
 // 	const ui = useSelector(state => state.ui);
@@ -63,39 +89,16 @@ import CreatePost from './components/createPost';
 // 		});
 // 	}
 function App() {
+	const [state, dispatch] = useReducer(userReducer, initialState);
 	return (
+		<userContext.Provider value = {{state,dispatch}} >
 		<BrowserRouter>
 			<Header />
-			<Route exact path='/'>
-				<Home />
-			</Route>
-			<Route path="/signin">
-				<Login />
-			</Route>
-			<Route path="/signup">
-				<Signup />
-			</Route>
-			<Route path="/profile">
-				<Profile />
-			</Route>
-			<Route path="/create">
-				<CreatePost />
-			</Route>
+			<Routing />
 		</BrowserRouter>
+		</userContext.Provider>
 	);
 }
-	
-// 	return (
-// 		<Wrapper className='app no-drag'>
-// 			<Header />
-// 			<div>Hello World!</div>
-// 			{/* <Body />
-// 			<Footer />
-// 			{ ui.nav === 1 ? <div className='sidebar-cover' /> : '' }
-// 			{ ui.nav === 1 ? <Sidebar /> : '' }
-// 			<Cover /> */}
-// 		</Wrapper>
-// 	);
-// }
+
 
 export default App;

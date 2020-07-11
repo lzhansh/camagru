@@ -1,6 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 const Profile = () => {
+	useEffect(() => {
+		fetch('/mypost', {
+			headers: {
+				"Authorization": "Bearer " + localStorage.getItem("jwt")
+			}
+		}).then(res=> res.json())
+		.then(result => {
+			
+		})
+	})
 	return (
 		<div style={{maxWidth:"550px", margin:"0px auto"}}>
 			<div style={{

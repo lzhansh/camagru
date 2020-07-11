@@ -6,7 +6,7 @@ const router = express.Router();
 // const User = require('../models/user');
 const Post = require('../models/post');
 
-router.get('/allposts', (req, res) => {
+router.get('/allposts', loginMid, (req, res) => {
 	Post.find()
 	.populate("postedBy", "_id name")
 	.then(posts => {
@@ -18,14 +18,15 @@ router.get('/allposts', (req, res) => {
 })
 
 router.post('/createpost', loginMid, (req, res) => {
-	const  {title, body} = req.body;
-	if (!title || !body) {
+	const  {title, body, pic} = req.body;
+	if (!title || !body || !pic) {
 		res.status(422).json({error: "Please, fill up all the fields"});
 	}
 	req.user.password = undefined;
 	const post = new Post({
 		title,
 		body,
+		image: pic,
 		postedBy: req.user
 	})
 

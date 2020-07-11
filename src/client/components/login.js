@@ -1,8 +1,10 @@
-import React,{useState} from 'react';
+import React,{useState, useContext} from 'react';
 import {Link, useHistory} from 'react-router-dom'
+import { userContext } from '../App'
 import M from 'materialize-css';
 
 const Login = () => {
+	const {state, dispatch} = useContext(userContext)
 	const history = useHistory();
 	const [password, setPassword] = useState("");
 	const [email, setEmail] = useState("");
@@ -25,6 +27,9 @@ const Login = () => {
 				if (data.error) {
 					M.toast({html:data.error, classes:"#f44336 red"});
 				} else {
+					localStorage.setItem("jwt", data.token);
+					localStorage.setItem("user", JSON.stringify(data.user));
+					dispatch({type: "USER", payload:data.user})
 					M.toast({html: "Succesfully signed in", classes:"#4caf50 green"});
 					history.push('/');
 				}
@@ -38,7 +43,7 @@ const Login = () => {
 			 <div className="card login-card input-field">
 				<h2>Camagru</h2>
 				<input type = "text" placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
-				<input type = "text" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+				<input type = "password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
 				<button className="btn waves-effect waves-light #5e35b1 deep-purple darken-1" type="submit" name="action" onClick={()=>postData()}>
 					Login
 				</button>
