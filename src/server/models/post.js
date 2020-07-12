@@ -17,16 +17,15 @@ const postSchema = new mongoose.Schema({
 	postedBy: {
         type: ObjectId,
         ref: "User"
-    }
+    },
 	// imageType: {
 	// 	type: String
 	// }
-    // likes: [{
-    //         user: {
-    //             type: mongoose.Schema.Types.ObjectId,
-    //             ref: "User"
-	// 		}}
-    // ],
+    likes: [{
+			type: ObjectId,
+			ref: "User"
+		}
+    ],
     // comments: [
     //     {
     //         user: {

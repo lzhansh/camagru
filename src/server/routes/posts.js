@@ -48,6 +48,34 @@ router.get('/mypost', loginMid, (req, res) => {
 		console.log(e);
 	})
 })
+
+router.put('/like', loginMid, (req,res) => {
+	Post.findByIdAndUpdate(req.body.postId, {
+		$push:{likes: req.user._id}
+	}, {
+		new:true
+	}).exec((err, result) => {
+		if (err) {
+			return res.status(422).json({error: err});
+		} else {
+			res.json(result);
+		}
+	})
+})
+
+router.put('/unlike', loginMid, (req,res) => {
+	Post.findByIdAndUpdate(req.body.postId, {
+		$pull:{likes: req.user._id}
+	}, {
+		new:true
+	}).exec((err, result) => {
+		if (err) {
+			return res.status(422).json({error: err});
+		} else {
+			res.json(result);
+		}
+	})
+})
 // router.get('/all', async (req, res) => {
 // 	try {
 // 		const posts = await Post.find().sort({ date: -1 });
