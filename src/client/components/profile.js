@@ -30,7 +30,7 @@ const Profile = () => {
 						src="https://images.unsplash.com/photo-1504376379689-8d54347b26c6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=762&q=80"/>
 				</div>
 				<div>
-					<h4>{state ? state.name:"loading"}</h4>
+					<h4>{state ? state.name : "loading"}</h4>
 					<div style={{
 						display:"flex",
 						justifyContent:"space-between",

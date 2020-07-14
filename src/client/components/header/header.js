@@ -1,15 +1,6 @@
-import React, {useContext} from 'react';
+import React, {useContext,useEffect,useState} from 'react';
 import {Link, useHistory } from 'react-router-dom'
-import {userContext} from '../../reducers/user'
-
-// import { useSelector, useDispatch } from 'react-redux';
-// import { ui_nav, auth_token, search_user, post_posts, post_isdone } from '../../actions/types';
-
-// import axios from 'axios';
-
-// import { confirmAlert } from 'react-confirm-alert';
-// import { FiUser, FiSettings } from 'react-icons/fi';
-// import './index.css';
+import {userContext} from '../../App'
 
 const Header = () => {
 	const {state, dispatch} = useContext(userContext);
@@ -20,9 +11,9 @@ const Header = () => {
 				<li><Link to="/profile">Profile</Link></li>,
 				<li><Link to="/createpost">New Post</Link></li>,
 				<li>
-					<button className="btn waves-effect waves-light #f44336 red" type="submit" name="action"
+					<button className="btn waves-effect waves-light #f44336 red"
 					onClick = {()=>{
-						localStorage.clear();
+						localStorage.clear()
 						dispatch({type: "CLEAR"})
 						history.push('/signin')
 					}}>
