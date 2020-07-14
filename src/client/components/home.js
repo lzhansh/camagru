@@ -93,13 +93,31 @@ const Home = () => {
 		})
 	}
 
+	const deletePost = (postId) => {
+		fetch(`/deletepost/${postId}`, {
+			method: "delete",
+			headers: {
+				"Authorization" : "Bearer " + localStorage.getItem("jwt")
+			}
+		}).then(res => res.json())
+		.then(result => {
+			const newData = data.filter(item=>{
+                 return item._id !== result._id
+            })
+            setData(newData);
+		})
+	}
+
 	return (
 		<div className="home">
 			{
 				data.map(item => {
 					return (
 						<div className="card home-card" key={item._id}>
-							<h5 className="card-content">{item.postedBy.name}</h5>
+							<h5 className="card-content">{item.postedBy.name} {item.postedBy._id == state._id && 
+							<i className="material-icons" style={{float: "right"}} onClick={()=>{deletePost(item._id)}}
+							>delete</i>}</h5>
+							
 							<div className="card-image">
 								<img src={item.image} />
 							</div>
@@ -124,7 +142,7 @@ const Home = () => {
 												<span style={{fontWeight:"500"}}>
 													{record.postedBy.name}
 												</span>
-												{record.text}
+												 {record.text}
 											</h6>
 										)
 									})
