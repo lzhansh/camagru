@@ -48,23 +48,20 @@ router.get('/mypost', loginMid, (req, res) => {
 	})
 })
 
-router.put('/like', loginMid, (req,res) => {
-	Post.findByIdAndUpdate(req.body.postId, {
-		$push:{likes: req.user._id}
-	}, {
-		new:true
-	})
-	.populate("postedBy", "_id name")
+router.put('/like',loginMid,(req,res)=>{
+    Post.findByIdAndUpdate(req.body.postId,{
+        $push:{likes:req.user._id}
+    },{
+        new:true
+    }).populate("postedBy", "_id name")
 	.populate("comments.postedBy", "_id name")
-	.then(post => {
-		res.json({post});
-	}).exec((err, result) => {
-		if (err) {
-			return res.status(422).json({error: err});
-		} else {
-			res.json(result);
-		}
-	})
+	.exec((err,result)=>{
+        if(err){
+            return res.status(422).json({error:err})
+        }else{
+            res.json(result)
+        }
+    })
 })
 
 router.put('/unlike', loginMid, (req,res) => {
@@ -121,24 +118,5 @@ router.delete('/deletepost/:postId', loginMid, (req, res) => {
 		}
 	})
 })
-
-// router.delete('/deletecomment/:postId', loginMid, (req, res) => {
-// 	Post.findOne({_id: req.params.postId})
-// 	.populate("comments.postedBy", "_id")
-// 	.populate("postedBy", "_id")
-// 	.exec((err,post) => {
-// 		if (err || !post) {
-// 			return res.status(422).json({error:err})
-// 		}
-// 		if (post.postedBy._id.toString() === req.user._id.toString() ||
-// 		post.comments.postedBy._id.toString() === req.user._id.toString()) {
-// 			post.comments.remove()
-// 			.then(result => {res.json(result)
-// 			}).catch(err => {
-// 				console.log(err)
-// 			})
-// 		}
-// 	})
-// })
 
 module.exports = router

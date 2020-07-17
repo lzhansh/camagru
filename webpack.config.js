@@ -31,7 +31,7 @@ module.exports = {
     port: 8000,
     open: true,
     proxy: {
-      "*": "http://localhost:3000"
+      "/": "http://localhost:3000"
 	}
 	// inline: true, 
     // contentBase: './dist', 

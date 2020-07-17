@@ -110,7 +110,31 @@ const Home = () => {
             setData(newData);
 		})
 	}
-
+// 	const likePost = (id)=>{
+// 		fetch('/like',{
+// 			method:"put",
+// 			headers:{
+// 				"Content-Type":"application/json",
+// 				"Authorization":"Bearer "+localStorage.getItem("jwt")
+// 			},
+// 			body:JSON.stringify({
+// 				postId:id
+// 			})
+// 		}).then(res=>res.json())
+// 		.then(result=>{
+// 				 //   console.log(result)
+// 		  const newData = data.map(item=>{
+// 			  if(item._id==result._id){
+// 				  return result
+// 			  }else{
+// 				  return item
+// 			  }
+// 		  })
+// 		  setData(newData)
+// 		}).catch(err=>{
+// 			console.log(err)
+// 		})
+//   }
 	return (
 		<div className="home">
 			{
@@ -139,6 +163,15 @@ const Home = () => {
                             : <i className="material-icons" style={{color: "red"}}
                             onClick={()=>{likePost(item._id)}}
                             >favorite_border</i>}
+							{/* {item.likes.includes(state._id)
+                            ? 
+                             <i className="material-icons" style={{color: "red"}}
+                                    onClick={()=>{unlikePost(item._id)}}
+                              >favorite</i>
+                            : 
+                            <i className="material-icons" style={{color: "red"}}
+                            onClick={()=>{likePost(item._id)}}
+                            >favorite_border</i>} */}
 								<h6>{item.likes.length} likes</h6>
 								<h6>{item.title}</h6>
 								<p>{item.body}</p>
