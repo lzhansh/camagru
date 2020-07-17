@@ -27,11 +27,16 @@ module.exports = {
     ]
   },
   devServer: {
-    port: 3000,
+	contentBase: './dist', 
+    port: 8000,
     open: true,
     proxy: {
-      "/": "http://localhost:8080"
-    }
+      "*": "http://localhost:3000"
+	}
+	// inline: true, 
+    // contentBase: './dist', 
+    // port: 3001, 
+    // proxy: { "*": 'http://[::1]:3000' }
   },
   plugins: [
     new CleanWebpackPlugin(),

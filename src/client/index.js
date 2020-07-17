@@ -4,10 +4,10 @@ import App from './App';
 
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import RootReducers from './reducers/reducer';
+// import RootReducers from './reducers/reducer';
 
 const store = createStore(
-    RootReducers,
+    // RootReducers,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

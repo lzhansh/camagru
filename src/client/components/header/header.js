@@ -30,8 +30,8 @@ const Header = () => {
 	}
 	return (
 		<nav>
-		<div className="nav-wrapper white" >
-		  <Link to={state ? "/" : "/signin"} className="brand-logo left">Camagru</Link>
+		<div className="nav-wrapper white" key="hey">
+		  <Link to="/" className="brand-logo left">Camagru</Link>
 		  <ul id="nav-mobile" className="right">
 			{renderList()}
 		  </ul>

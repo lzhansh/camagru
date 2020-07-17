@@ -42,9 +42,6 @@ router.post('/signup', (req, res) => {
 		
 		bcrypt.hash(password, saltRounds)
 		.then(hashed => {
-			// if (err) {
-			// 	res.status(404).send(err);
-			// } else {
 				const user = new User({
 					name,
 					email,

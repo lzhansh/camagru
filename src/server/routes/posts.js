@@ -1,12 +1,10 @@
 const express = require("express");
-// const { check, validationResult } = require("express-validator");
 const loginMid = require('../middleware/login');
 
 const router = express.Router();
-// const User = require('../models/user');
 const Post = require('../models/post');
 
-router.get('/allposts', loginMid, (req, res) => {
+router.get('/allposts',  (req, res) => {
 	Post.find()
 	.populate("postedBy", "_id name")
 	.populate("comments.postedBy", "_id name")
@@ -55,6 +53,11 @@ router.put('/like', loginMid, (req,res) => {
 		$push:{likes: req.user._id}
 	}, {
 		new:true
+	})
+	.populate("postedBy", "_id name")
+	.populate("comments.postedBy", "_id name")
+	.then(post => {
+		res.json({post});
 	}).exec((err, result) => {
 		if (err) {
 			return res.status(422).json({error: err});
@@ -69,7 +72,10 @@ router.put('/unlike', loginMid, (req,res) => {
 		$pull:{likes: req.user._id}
 	}, {
 		new:true
-	}).exec((err, result) => {
+	})
+	.populate("postedBy", "_id name")
+	.populate("comments.postedBy", "_id name")
+	.exec((err, result) => {
 		if (err) {
 			return res.status(422).json({error: err});
 		} else {
@@ -115,5 +121,24 @@ router.delete('/deletepost/:postId', loginMid, (req, res) => {
 		}
 	})
 })
+
+// router.delete('/deletecomment/:postId', loginMid, (req, res) => {
+// 	Post.findOne({_id: req.params.postId})
+// 	.populate("comments.postedBy", "_id")
+// 	.populate("postedBy", "_id")
+// 	.exec((err,post) => {
+// 		if (err || !post) {
+// 			return res.status(422).json({error:err})
+// 		}
+// 		if (post.postedBy._id.toString() === req.user._id.toString() ||
+// 		post.comments.postedBy._id.toString() === req.user._id.toString()) {
+// 			post.comments.remove()
+// 			.then(result => {res.json(result)
+// 			}).catch(err => {
+// 				console.log(err)
+// 			})
+// 		}
+// 	})
+// })
 
 module.exports = router
